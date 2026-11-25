@@ -1,0 +1,11 @@
+numpy
+scipy
+matplotlib
+pandas
+scikit-learn
+jupyter
+nbformat
+nbconvert
+ipykernel
+# PyTorch CPU (installer séparément, voir setup/install_env.sh) :
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu

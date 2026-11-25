@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Environnement
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Données et modèles (trop volumineux pour git)
+data/
+*.pt
+*.pth
+*.ckpt
+
+# Divers
+.DS_Store
