@@ -43,6 +43,21 @@ On encode de même b, c, d (chaque ReLU avec son propre δ), les sorties y1 = c 
 
 Implémentation prévue : `scipy.optimize.milp` (solveur HiGHS embarqué, aucune installation externe).
 
+### Vérification à la main (résultats attendus — à confirmer dans le notebook)
+Propagation de bornes, neurone par neurone (z_a = x1 + 2x2 − x3 ∈ [−2, 3], z_b = −z_a ∈ [−3, 2]) :
+
+| neurone | min | max |
+|---|---|---|
+| a = ReLU(z_a) | 0 | 3 |
+| b = ReLU(z_b) | 0 | 2 |
+| c = ReLU(2a + b + 1) | 1 | 9 |
+| d = ReLU(a + 2b + 1) | 1 | 8 |
+| y1 = c + 2 | 3 | 11 |
+| y2 = d | 1 | 8 |
+
+- **B.** Borne inf de y1 − y2 par bound propagation : min(y1) − max(y2) = 3 − 8 = **−5 < 0** → **on ne peut pas prouver y1 > y2** (la propagation traite a et b comme indépendants, alors que a·b = 0 : sur-approximation).
+- **D–E.** En réalité, comme a·b = 0, on a partout **y1 − y2 = z_a + 2 = x1 + 2x2 − x3 + 2**, donc min(y1 − y2) = min(z_a) + 2 = −2 + 2 = **0**, atteint au coin (x1, x2, x3) = (−1, 0, 1). Conclusion exacte : **y1 > y2 est FAUX** (égalité y1 = y2 = 5 en ce point). Le MILP doit retrouver min = 0 exactement.
+
 **Pour l'oral** : savoir refaire la propagation de bornes d'une couche au tableau, et écrire l'encodage big-M d'un ReLU.
 
 ---
