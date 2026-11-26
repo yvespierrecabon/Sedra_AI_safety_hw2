@@ -20,7 +20,7 @@ Soumission en groupe : un ZIP à **rohan.menon@uol.de** contenant le **rapport P
 
 ### Partie 1 (25 %) — Vérification formelle
 Réseau donné sur le schéma (entrées **x1 ∈ [-1,1], x2 ∈ [0,1], x3 ∈ [0,1]**) :
-- a = ReLU(−x1 + 2·x2 − x3),  b = ReLU(x1 + x2 + x3)
+- a = ReLU(+x1 + 2·x2 − x3),  b = ReLU(−x1 − 2·x2 + x3)  (z_b = −z_a : a et b sont les parties positive/négative de la même pré-activation z_a)
 - c = ReLU(2·a + b + 1),  d = ReLU(a + 2·b + 1)
 - **y1 = c + 2**,  **y2 = d**
 

@@ -92,7 +92,7 @@ Sedra_AI_safety_hw2/
 
 #### **Actions Réalisées**
 - Extraction du sujet officiel `docs/AISafety_HW2.pdf` (7 pages, OCR) : consignes, barème, Parties 1–3.
-- Lecture du schéma de la Partie 1 : entrées x1∈[-1,1], x2∈[0,1], x3∈[0,1] ; a=ReLU(−x1+2x2−x3), b=ReLU(x1+x2+x3) ; c=ReLU(2a+b+1), d=ReLU(a+2b+1) ; y1=c+2, y2=d.
+- Lecture du schéma de la Partie 1 : entrées x1∈[-1,1], x2∈[0,1], x3∈[0,1] ; **a=ReLU(+x1+2x2−x3), b=ReLU(−x1−2x2+x3)** (z_b = −z_a) ; c=ReLU(2a+b+1), d=ReLU(a+2b+1) ; y1=c+2, y2=d.
 - Création de `docs/CONTEXT.md` (contexte persistant) et de ce fichier ; `README.md`, `.gitignore`, `requirements.txt`, `setup/install_env.sh`.
 - Rédaction de la traduction FR du sujet : `docs/AISafety_HW2_traduction_fr.md`.
 - Rédaction des explications de concepts par partie : `docs/AISafety_HW2_explications_concepts.md`.
@@ -105,7 +105,17 @@ Sedra_AI_safety_hw2/
 
 ---
 
+### **Session 2 — Correction des poids de la Partie 1**
+
+#### **Actions Réalisées**
+- ⚠️ L'extraction OCR initiale (image 515×191) avait lu a = ReLU(−x1+2x2−x3), b = ReLU(x1+x2+x3) — signes erronés. L'utilisateur a signalé que x1→a semblait être **+1**.
+- ✅ Vérification à haute résolution : image native embarquée dans le PDF (835×382), image uploadée par l'utilisateur, rendu 600 dpi de la page 3 → lecture convergente : **x1→a=+1, x2→a=+2, x3→a=−1, x1→b=−1, x2→b=−2, x3→b=+1**, soit z_b = −z_a (cohérence de conception : a et b = parties positive/négative de z_a). Couches suivantes inchangées : a→c=2, b→c=1, a→d=1, b→d=2 ; biais a=0, b=0, c=1, d=1 ; c→y1=1, d→y2=1 ; biais y1=2, y2=0.
+- Correction propagée dans `CONTEXT.md`, `AVANCEMENT.md`, `AISafety_HW2_explications_concepts.md`.
+
+---
+
 ## **Calendrier des Sessions**
+- **Session 2** : correction des poids du réseau (Partie 1) après vérification 600 dpi — a = ReLU(+x1+2x2−x3), b = ReLU(−x1−2x2+x3).
 - **Session 1** : mise en contexte Devoir 2 ; traduction + concepts + environnement sandbox.
 
 ---

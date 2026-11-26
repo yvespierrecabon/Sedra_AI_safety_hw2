@@ -8,8 +8,8 @@
 
 ### Le réseau à vérifier
 Entrées : **x1 ∈ [-1, 1], x2 ∈ [0, 1], x3 ∈ [0, 1]** (le domaine d'entrée X est un pavé).
-- a = ReLU(−x1 + 2·x2 − x3)
-- b = ReLU(x1 + x2 + x3)
+- a = ReLU(+x1 + 2·x2 − x3)
+- b = ReLU(−x1 − 2·x2 + x3)  →  z_b = −z_a, donc **a·b = 0** (un seul des deux est non nul, sauf si z_a = 0)
 - c = ReLU(2·a + b + 1)
 - d = ReLU(a + 2·b + 1)
 - **y1 = c + 2**, **y2 = d**
@@ -27,7 +27,7 @@ On obtient ainsi des bornes pour a, b, c, d, puis y1, y2.
 On regarde **min(y1 − y2) = min(y1) − max(y2)** (borne inférieure de la différence). Si cette borne est **> 0**, alors y1 > y2 est prouvé partout. Sinon, la bound propagation **ne conclut pas** — ce n'est pas une preuve de l'inverse : les bornes sont une sur-approximation (les min et max de y1 et y2 ne sont pas atteints au même point d'entrée).
 
 ### C. Encodage MILP du neurone « a » (big-M, M = 1 000 000)
-Somme pondérée (pré-activation) : **z_a = −x1 + 2·x2 − x3 + 0** (biais nul).
+Somme pondérée (pré-activation) : **z_a = +x1 + 2·x2 − x3 + 0** (biais nul) ; z_b = −z_a.
 ReLU exact par variable binaire δ ∈ {0,1} et grand M :
 - a ≥ 0
 - a ≥ z_a
