@@ -57,6 +57,8 @@ Propagation de bornes, neurone par neurone (z_a = x1 + 2x2 − x3 ∈ [−2, 3],
 
 - **B.** Borne inf de y1 − y2 par bound propagation : min(y1) − max(y2) = 3 − 8 = **−5 < 0** → **on ne peut pas prouver y1 > y2** (la propagation traite a et b comme indépendants, alors que a·b = 0 : sur-approximation).
 - **D–E.** En réalité, comme a·b = 0, on a partout **y1 − y2 = z_a + 2 = x1 + 2x2 − x3 + 2**, donc min(y1 − y2) = min(z_a) + 2 = −2 + 2 = **0**, atteint au coin (x1, x2, x3) = (−1, 0, 1). Conclusion exacte : **y1 > y2 est FAUX** (égalité y1 = y2 = 5 en ce point). Le MILP doit retrouver min = 0 exactement.
+- Remarque : comme a, b ≥ 0, les pré-activations de c et d (2a+b+1 et a+2b+1) sont toujours ≥ 1, donc **les ReLU de c et d sont toujours actifs** : on peut aussi écrire y1 = 2a + b + 3 et y2 = a + 2b + 1 (identique, vérifié numériquement).
+- ⚠️ **Piège fréquent** : on ne peut PAS substituer y1 = z_a + 3 et y2 = −z_a + 1 simultanément — cela supposerait a = z_a (z_a ≥ 0) et b = −z_a (z_a ≤ 0) en même temps, impossible car a·b = 0. Dans chaque régime, y1 − y2 = a − b + 2 = z_a + 2 : le min vaut **0**, pas −2.
 
 **Pour l'oral** : savoir refaire la propagation de bornes d'une couche au tableau, et écrire l'encodage big-M d'un ReLU.
 
